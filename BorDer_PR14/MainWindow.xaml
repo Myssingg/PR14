@@ -1,0 +1,56 @@
+﻿<Window x:Class="BorDer_PR14.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BorDer_PR14"
+        mc:Ignorable="d"
+        Title="Пациенты" 
+        ResizeMode="NoResize" FontFamily="Tahoma" FontSize="16"
+        Width="680" Height="480">
+
+    <StackPanel Orientation="Horizontal" Margin="5" Background="Azure">
+        <StackPanel Orientation="Vertical" Width="200" Margin="5">
+            <TextBlock Text="Список пациентов:"/>
+            <ListView Background="FloralWhite" Name="listPatients" Height="300" DisplayMemberPath="ФИО" SelectionChanged="listPatients_SelectionChanged"/>
+
+            <Button x:Name="buttonWatchWrites" Click="buttonWatchWrites_Click" Content="Просмотреть записи" Margin="0,25,0,0" Padding="5"/>
+            <Button x:Name="buttonWritePatient" Click="buttonWritePatient_Click" Content="Записать пациента" Margin="0,10,0,0" Padding="5"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Margin="10" Width="200">
+            <TextBlock Text="Фамилия" Margin="0,5,0,0"/>
+            <TextBox x:Name="Surname"/>
+            
+            <TextBlock Text="Имя" Margin="0,5,0,0"/>
+            <TextBox x:Name="Name"/>
+            
+            <TextBlock Text="Отчество" Margin="0,5,0,0"/>
+            <TextBox x:Name="Patronymic"/>
+            
+            <TextBlock Text="Пол" Margin="0,5,0,0"/>
+            <DockPanel Width="100" HorizontalAlignment="Left">
+                <RadioButton IsChecked="True" x:Name="Male" Content="М" VerticalContentAlignment="Center" GroupName="sex" DockPanel.Dock="Left"/>
+                <RadioButton x:Name="Female" Content="Ж" VerticalContentAlignment="Center" GroupName="sex" DockPanel.Dock="Right" HorizontalAlignment="Right"/>
+            </DockPanel>
+
+            <TextBlock Text="Дата рождения" Margin="0,5,0,0"/>
+            <DatePicker Name="DateOfBirth" SelectedDateFormat="Long"/>
+
+            <TextBlock Text="Фактический адрес" Margin="0,5,0,0"/>
+            <TextBox x:Name="Address"/>
+
+            <TextBlock Text="Полис" Margin="0,5,0,0"/>
+            <TextBox x:Name="Polis"/>
+
+            <TextBlock Text="Телефон" Margin="0,5,0,0"/>
+            <TextBox x:Name="PhoneNumber"/>
+
+            <Button x:Name="buttonChange" IsEnabled="False" Click="buttonChange_Click" Content="Изменить" Margin="0,10,0,0" Padding="5"/>
+        </StackPanel>
+
+        <StackPanel  Margin="10" Width="200" VerticalAlignment="Bottom">
+            <Button x:Name="buttonAddPatient" Click="buttonAddPatient_Click" Content="Добавить" Margin="0,10,0,0" Padding="5"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

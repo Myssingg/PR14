@@ -1,0 +1,27 @@
+﻿<Window x:Class="BorDer_PR14.WritesList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BorDer_PR14"
+        mc:Ignorable="d"
+        Title="Список записей" 
+        ResizeMode="NoResize" FontFamily="Tahoma" FontSize="16"
+        Width="380" Height="290" Closing="Window_Closing">
+    <StackPanel Orientation="Vertical" Margin="10" Background="Azure">
+        <TextBlock Text="Пациент"/>
+        <TextBox x:Name="patient" Width = "180" HorizontalAlignment="Left" Background="Gray" IsReadOnly="True"/>
+        <TextBlock Text="Записи" Margin="0,10,0,0"/>
+        <ListView x:Name="listWrites" Height="120" SelectionChanged="listWrites_SelectionChanged" Background="FloralWhite"/>
+
+        <Grid Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="buttonBack" Click="buttonBack_Click" Content="Назад" Padding="5" Grid.Column="0" Margin="0,0,5,0"/>
+            <Button x:Name="buttonCancelWrite" Click="buttonCancelWrite_Click" IsEnabled="False" Content="Отменить запись" Grid.Column="1" Padding="5" DockPanel.Dock="Right"/>
+        </Grid>
+    </StackPanel>
+</Window>

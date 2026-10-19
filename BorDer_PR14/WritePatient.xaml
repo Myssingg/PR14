@@ -1,0 +1,29 @@
+﻿<Window x:Class="BorDer_PR14.WritePatient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BorDer_PR14"
+        mc:Ignorable="d"
+        Title="Запись на прием" 
+        ResizeMode="NoResize" FontFamily="Tahoma" FontSize="16"
+        Width="200" Height="335" Closing="Window_Closing">
+    <StackPanel Orientation="Vertical" Margin="5" Background="Azure">
+        <TextBlock Text="Пациент" Margin="0,5,0,0"/>
+        <TextBox x:Name="Patient" Background="Gray" Width="180" IsReadOnly="True"/>
+
+        <TextBlock Text="Специальность" Margin="0,5,0,0"/>
+        <ComboBox Name="Speciality" SelectionChanged="Speciality_SelectionChanged"/>
+        
+        <TextBlock Text="Врач" Margin="0,5,0,0"/>
+        <ComboBox Name="Doctor"/>
+
+        <TextBlock Text="Дата" Margin="0,5,0,0"/>
+        <DatePicker Name="Date" SelectedDateFormat="Long"/>
+        
+        <TextBlock Text="Время" Margin="0,5,0,0"/>
+        <ComboBox Name="timeCombo"/>
+
+        <Button Click="Button_Click" Padding="5" Content="Запись" Margin="0,10,0,0"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,224 @@
+USE [master]
+GO
+/****** Object:  Database [BorDer_PR14_01.01]    Script Date: 03.03.2026 19:42:50 ******/
+CREATE DATABASE [BorDer_PR14_01.01]
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET COMPATIBILITY_LEVEL = 170
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [BorDer_PR14_01.01].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET RECOVERY FULL 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET  MULTI_USER 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET OPTIMIZED_LOCKING = OFF 
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [BorDer_PR14_01.01]
+GO
+/****** Object:  Table [dbo].[Врач]    Script Date: 03.03.2026 19:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Врач](
+	[Код] [int] IDENTITY(1,1) NOT NULL,
+	[Фамилия] [nvarchar](50) NOT NULL,
+	[Имя] [nvarchar](50) NOT NULL,
+	[Отчество] [nvarchar](50) NULL,
+	[Специальность_Код] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Код] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Запись]    Script Date: 03.03.2026 19:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Запись](
+	[Код] [int] IDENTITY(1,1) NOT NULL,
+	[Пациент_Код] [int] NOT NULL,
+	[Врач_Код] [int] NOT NULL,
+	[Дата_записи] [date] NOT NULL,
+	[Время_записи] [time](7) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Код] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Пациент]    Script Date: 03.03.2026 19:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Пациент](
+	[Код] [int] IDENTITY(1,1) NOT NULL,
+	[Фамилия] [nvarchar](50) NOT NULL,
+	[Имя] [nvarchar](50) NOT NULL,
+	[Отчество] [nvarchar](50) NULL,
+	[Пол] [nchar](1) NULL,
+	[Дата_рождения] [date] NULL,
+	[Фактический_адрес] [nvarchar](255) NULL,
+	[Номер_полиса] [nvarchar](20) NULL,
+	[Номер_телефона] [nvarchar](20) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Код] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Специальность]    Script Date: 03.03.2026 19:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Специальность](
+	[Код] [int] IDENTITY(1,1) NOT NULL,
+	[Наименование] [nvarchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Код] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Врач] ON 
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (1, N'Федачук', N'Алексей', N'Николаевич', 1)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (2, N'Осадчая', N'Екатерина', N'Николаевна', 2)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (3, N'Юнусова', N'Юлия', N'Эдуардовна', 3)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (4, N'Судюков', N'Олег', N'Александрович', 4)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (5, N'Сенникова', N'Анастасия', N'Владимировна', 5)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (6, N'Сафаргалиева', N'Екатерина', N'Юрьевна', 5)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (7, N'Оборин', N'Александр', N'Андреевич', 1)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (8, N'Ильин', N'Вадим', N'Борисович', 3)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (9, N'Гун', N'Антон', N'Францевич', 4)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (10, N'Девяткова', N'Анна', N'Сергеевна', 6)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (11, N'Невоструева', N'Ольга', N'Николаевна', 2)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (12, N'Коневских', N'Елизавета', N'Александровна', 7)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (13, N'Малиновская', N'Анастасия', N'Александровна', 8)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (14, N'Бояршинова', N'Екатерина', N'Геннадьевна', 8)
+GO
+INSERT [dbo].[Врач] ([Код], [Фамилия], [Имя], [Отчество], [Специальность_Код]) VALUES (15, N'Полыгалов', N'Юрий', N'Ариантович', 8)
+GO
+SET IDENTITY_INSERT [dbo].[Врач] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Пациент] ON 
+GO
+INSERT [dbo].[Пациент] ([Код], [Фамилия], [Имя], [Отчество], [Пол], [Дата_рождения], [Фактический_адрес], [Номер_полиса], [Номер_телефона]) VALUES (1, N'Иванов', N'Иван', N'Иванович', N'М', CAST(N'1990-05-15' AS Date), N'г. Москва, ул. Ленина, д. 10, кв. 5', N'1234567890123456', N'+79991234567')
+GO
+INSERT [dbo].[Пациент] ([Код], [Фамилия], [Имя], [Отчество], [Пол], [Дата_рождения], [Фактический_адрес], [Номер_полиса], [Номер_телефона]) VALUES (2, N'Иванов', N'Иван', N'Иванович', N'М', CAST(N'1990-05-15' AS Date), N'г. Москва, ул. Ленина, д. 10, кв. 5', N'1234567890123456', N'+79456745535')
+GO
+SET IDENTITY_INSERT [dbo].[Пациент] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Специальность] ON 
+GO
+INSERT [dbo].[Специальность] ([Код], [Наименование]) VALUES (1, N'Хирург')
+GO
+INSERT [dbo].[Специальность] ([Код], [Наименование]) VALUES (2, N'Невролог')
+GO
+INSERT [dbo].[Специальность] ([Код], [Наименование]) VALUES (3, N'Лор')
+GO
+INSERT [dbo].[Специальность] ([Код], [Наименование]) VALUES (4, N'Нейрохирург')
+GO
+INSERT [dbo].[Специальность] ([Код], [Наименование]) VALUES (5, N'Гинеколог')
+GO
+INSERT [dbo].[Специальность] ([Код], [Наименование]) VALUES (6, N'Офтальмолог')
+GO
+INSERT [dbo].[Специальность] ([Код], [Наименование]) VALUES (7, N'Эндокринолог')
+GO
+INSERT [dbo].[Специальность] ([Код], [Наименование]) VALUES (8, N'Терапевт')
+GO
+SET IDENTITY_INSERT [dbo].[Специальность] OFF
+GO
+ALTER TABLE [dbo].[Врач]  WITH CHECK ADD FOREIGN KEY([Специальность_Код])
+REFERENCES [dbo].[Специальность] ([Код])
+GO
+ALTER TABLE [dbo].[Запись]  WITH CHECK ADD FOREIGN KEY([Врач_Код])
+REFERENCES [dbo].[Врач] ([Код])
+GO
+ALTER TABLE [dbo].[Запись]  WITH CHECK ADD FOREIGN KEY([Пациент_Код])
+REFERENCES [dbo].[Пациент] ([Код])
+GO
+USE [master]
+GO
+ALTER DATABASE [BorDer_PR14_01.01] SET  READ_WRITE 
+GO
